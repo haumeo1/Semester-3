@@ -1,0 +1,63 @@
+.main{
+    background-color: #f0f0f0;
+    padding: 20px;
+    margin: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+header{
+    padding: 10px;
+    margin: 5px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    font-family: "Rubik Doodle Shadow", system-ui;
+}
+header > h1{
+    font-size: 3em;
+    color: #a0cf14;
+    animation-duration: 3s;
+    animation-name: slidein;
+}
+@keyframes slidein {
+    from {
+      translate: 150vw 0;
+      scale: 200% 1;
+    }
+  
+    to {
+      translate: 0 0;
+      scale: 100% 1;
+    }
+  }
+.section{
+    background-color: #fff;
+    padding: 10px;
+    margin: 5px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.nav-bar:hover{
+    background-color: #a0cf14;
+    opacity: 0.8;
+    transform: scale(1.1);
+}
+#nav-about{
+    grid-column: 1;
+
+}
+#nav-career{
+    grid-column: 2;
+
+}
+#nav-hobbies{
+    grid-column: 3;
+}
+@media screen and (max-width:600px){
+    .nav-bar{
+        display: none;
+    }
+}
+p::first-letter{
+    font-size: 2em;
+    color:black ;
+}

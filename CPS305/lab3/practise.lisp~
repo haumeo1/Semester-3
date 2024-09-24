@@ -1,0 +1,11 @@
+;; Define the 'course' structure
+(defstruct course
+  course-name
+  course-code
+  instructor
+  credits)
+
+;; Define the function to set the course name
+(defun set-course-name (cs-course new-name)
+  (setf (course-course-name cs-course) new-name)
+  cs-course)

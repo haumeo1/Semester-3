@@ -1,0 +1,6 @@
+(defun ave (a b)
+  (- a b)
+  )
+(defun ve (a b)
+  (* (ave a b) 2)
+  )

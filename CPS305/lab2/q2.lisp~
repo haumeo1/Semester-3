@@ -1,0 +1,29 @@
+;; Type this code, as is, in your lab02-ans.lisp file.
+;; DO NOT MODIFY THIS CODE
+(defparameter *events* (list))
+
+(defun roll-dice ()
+  (let* ((s1 (1+ (random 6)))
+         (s2 (1+ (random 6)))
+         (sum (+ s1 s2)))
+    (push (list sum s1 s2) *events*)
+    sum))
+
+(defun simulate-dice-rolls (n)
+  "Simulates rolling a pair of dice n times and returns the count of how many times the next sum is greater than the previous sum."
+  (let ((count 0)        ;; To keep track of how many times the next sum is greater
+        (previous-sum 0)) ;; To store the sum of the previous roll
+    (dotimes (i n)       ;; Loop n times
+      (let ((current-sum (roll-dice))) ;; Roll the dice and get the current sum
+        (when (> current-sum previous-sum) ;; Check if the current sum is greater than the previous
+          (incf count))                       ;; Increment the count if true
+        (setf previous-sum current-sum)))    ;; Update the previous sum for the next iteration
+    count))                                  ;; Return the final count
+
+
+(defun execute-experiment (n)
+  "This function implements a simple interface for analyzing the
+   operation of function SIMULATE-DICE-ROLLS"
+  (setf *events* (list))
+  (let ((res (simulate-dice-rolls n)))
+    (format t "simulate-dice-rolls returned: ~a~%(Sum Dice1 Dice2) values: ~a~%" res (reverse *events*))))
