@@ -1,0 +1,30 @@
+(defstruct movie
+  title director year type
+  )
+(defun add-movie (movie array)
+  (let ((title (movie-title movie))
+        (found nil)
+        (index -1))
+    ;; Check if the title already exists in the array
+    (dotimes (i (length array))
+      (when (and (not (null (aref array i)))
+                 (string= title (movie-title (aref array i))))
+        (setf found t
+              index i)))
+    
+    ;; If title exists or array is full, return NIL
+    (if (or found (not (null (aref array (1- (length array))))))
+        nil
+        ;; Add the movie to the first empty spot in the array
+        (dotimes (i (length array))
+          (when (null (aref array i))
+            (setf (aref array i) movie)
+            (return array)))))))
+
+(defun num-movies (array)
+  (let ((count 0))
+    ;; Count the number of non-NIL entries in the array
+    (dotimes (i (length array))
+      (when (not (null (aref array i)))
+        (incf count)))
+    count))

@@ -1,0 +1,14 @@
+; SLIME 2.30.git
+CL-USER> (load "lisp.lisp")
+
+; file: /Users/benjamin/TMU/Semester-3/CPS305/lab3/lisp.lisp
+; in: DEFUN ADD-MOVIE
+;     (INDEX -1)
+; 
+; caught STYLE-WARNING:
+;   The variable INDEX is assigned but never read.
+; 
+; compilation unit finished
+;   caught 1 STYLE-WARNING condition
+* ; Evaluation aborted on #<SB-C::INPUT-ERROR-IN-LOAD {70050F9683}>.
+CL-USER> (square 2 2
