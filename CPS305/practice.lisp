@@ -1,41 +1,17 @@
-(defun convert-to-letter-grade (numeric-grade)
-  (case (floor numeric-grade 10)
-    (10 "A")
-    (9 "A")
-    (8 "B")
-    (7 "C")
-    (6 "D")
-    (otherwise "F")))
+(defun add-movie (movie array)
+  (let* ((title (movie-title movie))   ; Get the title of the movie
+         (found nil)                   ; Initialize a variable to track if the movie exists
+         (length (length array)))       ; Get the length of the array
+    ;; Loop through the array to check if the movie exists or find an empty slot
+    (dotimes (i length)
+      ;; If the slot is not empty and the title matches, set `found` to true
+      (when (and (not (null (aref array i))) 
+                 (string= (movie-title (aref array i)) title))
+        (setf found t)))
+    ;; If the movie is found or array is full, return NIL
+    (if (or found (not (find NIL array)))
+        NIL
+      ;; Otherwise, find the first empty slot and add the movie
+      (setf (aref array (position NIL array)) movie)
+      array)))
 
-(defun cal (x y func)
-  (case func
-    ('plus (+ x y))
-    ('minus (- x y))
-    ('div (/ x y))  
-    )
-
-  )
-
-;; bank-account.lisp
-(defvar *balance* 100)
-(defun withdraw (amount)
-  (if (> amount 1000)
-      (print "Exceed limit")
-      
-      )
-  (if (< amount 0)
-      (print "Negative Amount")
-      )
-  
-  
-  (if (>= *balance* amount)
-      (setf *balance* (- *balance* amount))
-      (print "Insufficient funds"))
-  *balance*)
-
-(defun fact (x)
-  (if (<= x 1)
-      1
-      (* x (fact (1- x)))
-      )
-  )

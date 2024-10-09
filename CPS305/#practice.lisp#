@@ -1,0 +1,24 @@
+(defstruct movie
+title director year type
+  )
+(defun add-movie (movie array)
+  (let* ((title (movie-title movie))   ; Get the title of the movie
+         (length (length array))       ; Get the length of the array
+         (found nil)                   ; Initialize a flag to check if the movie exists
+         (empty-slot nil))             ; Variable to track the first empty slot
+    ;; Loop through the array to check if the movie already exists and find an empty slot
+    (dotimes (i length)
+      (let ((current-movie (aref array i)))
+        ;; If an empty slot (NIL) is found, record its position
+        (when (and (not empty-slot) (null current-movie))
+          (setf empty-slot i))
+        ;; If the movie already exists, set `found` to true
+        (when (and current-movie (string= (movie-title current-movie) title))
+          (setf found t))))
+    ;; If the movie exists or the array is full (no empty slot), return NIL
+    (if (or found (not empty-slot))
+        NIL
+      ;; Otherwise, add the movie to the first empty slot
+      (setf (aref array empty-slot) movie)
+      )))
+
