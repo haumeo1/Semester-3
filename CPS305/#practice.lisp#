@@ -2,23 +2,112 @@
 title director year type
   )
 (defun add-movie (movie array)
-  (let* ((title (movie-title movie))   ; Get the title of the movie
-         (length (length array))       ; Get the length of the array
-         (found nil)                   ; Initialize a flag to check if the movie exists
-         (empty-slot nil))             ; Variable to track the first empty slot
-    ;; Loop through the array to check if the movie already exists and find an empty slot
+  (let ((length (length array))
+        (found NIL)
+        (spot NIL)
+        )
     (dotimes (i length)
-      (let ((current-movie (aref array i)))
-        ;; If an empty slot (NIL) is found, record its position
-        (when (and (not empty-slot) (null current-movie))
-          (setf empty-slot i))
-        ;; If the movie already exists, set `found` to true
-        (when (and current-movie (string= (movie-title current-movie) title))
-          (setf found t))))
-    ;; If the movie exists or the array is full (no empty slot), return NIL
-    (if (or found (not empty-slot))
+      (let ((current (aref array i)))
+        (when (and (not spot) (null current))
+          (setf spot i)
+          )
+        (when (and current (string= (movie-title current) (movie-title movie))) 
+          (setq found t)
+          )        
+        )
+      )
+    (if (or found (not spot))
         NIL
-      ;; Otherwise, add the movie to the first empty slot
-      (setf (aref array empty-slot) movie)
-      )))
+        (setf (aref array spot) movie)
+        )  
+    )
 
+  )
+;delete function
+(defun delete-movie (title array)
+  (let ((length (length array))
+        (found nil)
+        )
+    (dotimes (i length)
+      (let ((current (aref array i) ))
+        (when (and current (string= title (movie-title current)))
+          (setq found t)
+          (setf (aref array i) nil)
+          )    
+        )
+      )
+    (if (not found)
+        NIL
+        array
+        )
+    )
+  )
+;number of movies
+(defun num-movies (array)
+  (let ((count 0)
+        (length (- (length array) 1))
+        ) 
+    (dotimes (i length (when (null (aref array i)) (return)))
+      (if (aref array i)
+          (incf count)
+          )
+      )
+    count
+    )
+  )
+
+(defstruct person
+  name
+  age
+  )
+
+(defun filter-ages (vector number)
+  (let ((arr (make-array 0 :adjustable t :fill-pointer 0))
+        (length (length vector))
+        )
+    (dotimes (i length)
+      (let ((current (aref vector i)))
+        (when (and current (> (person-age current) number))
+          (vector-push-extend (person-name current) arr)
+          )
+        )
+      )
+    arr
+    )
+  )
+
+(defun array-group (array1 array2)
+  (let* ((length1 (length array1))   ; Length of the first array
+         (length2 (length array2))   ; Length of the second array
+         (max-length (max length1 length2))  ; Maximum length of the two arrays
+         ;; Create a result array of size `max-length` with 2 columns
+         (result (make-array `(,max-length ,max-length))))
+    ;; Loop through each index up to `max-length`
+    (dotimes (i max-length)
+      (cond
+        ;; If index `i` is beyond the length of array2, fill in NIL for array2
+        ((>= i length2)
+         (setf (aref result i 0) (aref array1 i))  ; Add element from array1
+         (setf (aref result i 1) nil))             ; NIL for array2
+        ;; If index `i` is beyond the length of array1, fill in NIL for array1
+        ((>= i length1)
+         (setf (aref result i 0) nil)              ; NIL for array1
+         (setf (aref result i 1) (aref array2 i))) ; Add element from array2
+        ;; If both arrays have elements, add both
+        (t
+         (setf (aref result i 0) (aref array1 i))  ; Add element from array1
+         (setf (aref result i 1) (aref array2 i)))))  ; Add element from array2
+    ;; Return the result array
+    result))
+
+(defun check-cond (arr)
+  (let ((length (length arr)))
+    (dotimes (i length)
+      (cond
+        ((= i 2)
+         (print "2")
+         )
+        )
+      )
+    )
+  )
