@@ -111,3 +111,74 @@ title director year type
       )
     )
   )
+
+(defun appear (arr number)
+  (let ((count 0)
+        (length (length arr))
+        )
+    (dotimes (i length)
+      (when (= number (aref arr i))
+        (incf count)
+        )
+      )
+    count
+    )
+
+  )
+(defun return-max (arr)
+  (let ((count (make-hash-table))
+        (length (length arr))
+        )
+    (dotimes (i length)
+      (incf (gethash (aref arr i) count 0))
+      )
+    )
+  )
+
+(defun sum-square (number)
+  (let ((result 0))
+    (dotimes (i (+ 1 number))
+      (setq result (+ result (* i i)))
+      )
+    result
+    )
+  
+  )
+
+(defun test-cond (arr)
+ (let ((count 0)
+       (count1 0)
+       (length (length arr))
+       )
+   (dotimes (i length)
+     (cond
+       ((<= (aref arr i) 2)
+        (incf count)
+        )
+       (t
+        (incf count1)
+        )
+       )
+     )
+   (list count count1)
+   )
+  )
+
+
+
+(defun count01 (arr)
+  "Returns a vector of lists where each list contains an element from the array and its count."
+  (let ((count (make-hash-table))  ; To store the frequency of each element
+        (length (length arr)))     ; The length of the input array
+    ;; Count occurrences of each element in the array
+    (dotimes (i length)
+      (let ((elem (aref arr i)))   ; Get the element at index i
+        (incf (gethash elem count 0)))) ; Increment its count in the hash table
+    
+    ;; Collect the keys from the hash table using loop
+    (let ((keys (loop for key being the hash-keys of count collect key)))
+      ;; Map the hash table to a vector of lists (element count)
+      (map 'vector (lambda (key)
+                     (list key (gethash key count)))
+           keys))))
+
