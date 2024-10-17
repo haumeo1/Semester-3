@@ -28,49 +28,45 @@
     
     
     <ul id="bookmarkList">
-        <li>
-            <i class="fa fa-unlock" style="font-size:24px; color: red"></i>
-        </li>
-        <li>
-            <i class="fa fa-lock" style="font-size:24px; color: green"></i>
-        </li>
-    
-        <li>
-            <i class="fa fa-lock" style="font-size:24px; color: green"></i>
-        </li>
     </ul>
 
     <h2>Problem 2: Palindrome Checker</h2>
-    <ul id="palindromeList"></ul>
+    <ul id="palindromeList">
+    </ul>
 
     <script>
-        // Problem 1: Bookmark List
+        // Problem 1
         function displayBookmarks() {
-            const bookmarks = [
-                { url: 'http://example.com', isSecure: false },
-                { url: 'https://secure-site.com', isSecure: true },
-                { url: "https://github.com/haumeo1", isSecure: true }
-            ];
-            const bookmarkList = document.getElementById('bookmarkList');
-            bookmarks.forEach(bookmark => {
-                const listItem = document.getElementsByTagName('li');
-                const icon = document.createElement('span');
+    const bookmarks = [
+        { url: "https://www.google.com" },
+        { url: "https://www.amazon.com" },
+        { url: "http://httpforever.com" },
+        { url: 'https://github.com/haumeo1'}
+    ];
+    const bookmarkList = document.getElementById('bookmarkList');
+    bookmarks.forEach(bookmark => {
+        const listItem = document.createElement('li');
+        const icon = document.createElement('i');
 
-                if (bookmark.isSecure) {
-                    icon.innerHTML = '&#128275;'; // Closed padlock (green)
-                    icon.className = 'secure';
-                } else {
-                    icon.innerHTML = '&#128275;'; // Opened padlock (red)
-                    icon.className = 'unsecure';
-                }
-
-                listItem.textContent = bookmark.url;
-                listItem.prepend(icon);
-                bookmarkList.appendChild(listItem);
-            });
+       if(bookmark.url.startsWith('https://')) {
+            bookmark.isSecure = true;
+        } else {
+            bookmark.isSecure = false;
+        }
+        if (bookmark.isSecure) {
+            icon.className = 'fa fa-lock secure';
+        } else {
+            icon.className = 'fa fa-unlock unsecure';
         }
 
-        // Problem 2: Palindrome Checker
+        listItem.appendChild(icon);
+        listItem.appendChild(document.createTextNode(' ' + bookmark.url));
+        bookmarkList.appendChild(listItem); 
+    });
+}
+
+
+        // Problem 2
         function cleanString(str) {
             return str.toLowerCase().replace(/[^a-z0-9]/g, '');
         }
@@ -82,12 +78,12 @@
 
         function displayPalindromeResults() {
             const testStrings = [
-                { text: 'Drab as a fool, aloof as a bard.', isPalindrome: true },
-                { text: 'It ain\'t over till it\'s over', isPalindrome: false },
-                { text: 'radar', isPalindrome: true },
-                { text: 'When you come to a fork in the road, take it', isPalindrome: false },
-                { text: 'Marge lets Norah see Sharon’s telegram.', isPalindrome: true },
-                { text: 'Was it a car or a cat I saw?', isPalindrome: true }
+                { text: 'Drab as a fool, aloof as a bard.'},
+                { text: 'It ain\'t over till it\'s over'},
+                { text: 'radar'},
+                { text: 'When you come to a fork in the road, take it'},
+                { text: 'Marge lets Norah see Sharon’s telegram.'},
+                { text: 'Was it a car or a cat I saw?'}
             ];
 
             const palindromeList = document.getElementById('palindromeList');
@@ -107,7 +103,7 @@
             });
         }
 
-        // Call functions to display content
+        
         displayBookmarks();
         displayPalindromeResults();
     </script>
