@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab 04 - Bookmarks and Palindromes</title>
+    <style>
+        .secure {
+            color: green;
+        }
+        .unsecure {
+            color: red;
+        }
+        .palindrome {
+            color: green;
+        }
+        .not-palindrome {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>Lab 04</h1>
+
+    <h2>Problem 1: Bookmark List</h2>
+    <p>Bookmark List:</p>
+    
+    
+    <ul id="bookmarkList">
+        <li>
+            <i class="fa fa-unlock" style="font-size:24px; color: red"></i>
+        </li>
+        <li>
+            <i class="fa fa-lock" style="font-size:24px; color: green"></i>
+        </li>
+    
+        <li>
+            <i class="fa fa-lock" style="font-size:24px; color: green"></i>
+        </li>
+    </ul>
+
+    <h2>Problem 2: Palindrome Checker</h2>
+    <ul id="palindromeList"></ul>
+
+    <script>
+        // Problem 1: Bookmark List
+        function displayBookmarks() {
+            const bookmarks = [
+                { url: 'http://example.com', isSecure: false },
+                { url: 'https://secure-site.com', isSecure: true },
+                { url: "https://github.com/haumeo1", isSecure: true }
+            ];
+            const bookmarkList = document.getElementById('bookmarkList');
+            bookmarks.forEach(bookmark => {
+                const listItem = document.getElementsByTagName('li');
+                const icon = document.createElement('span');
+
+                if (bookmark.isSecure) {
+                    icon.innerHTML = '&#128275;'; // Closed padlock (green)
+                    icon.className = 'secure';
+                } else {
+                    icon.innerHTML = '&#128275;'; // Opened padlock (red)
+                    icon.className = 'unsecure';
+                }
+
+                listItem.textContent = bookmark.url;
+                listItem.prepend(icon);
+                bookmarkList.appendChild(listItem);
+            });
+        }
+
+        // Problem 2: Palindrome Checker
+        function cleanString(str) {
+            return str.toLowerCase().replace(/[^a-z0-9]/g, '');
+        }
+
+        function isPalindrome(str) {
+            const cleaned = cleanString(str);
+            return cleaned === cleaned.split('').reverse().join('');
+        }
+
+        function displayPalindromeResults() {
+            const testStrings = [
+                { text: 'Drab as a fool, aloof as a bard.', isPalindrome: true },
+                { text: 'It ain\'t over till it\'s over', isPalindrome: false },
+                { text: 'radar', isPalindrome: true },
+                { text: 'When you come to a fork in the road, take it', isPalindrome: false },
+                { text: 'Marge lets Norah see Sharon’s telegram.', isPalindrome: true },
+                { text: 'Was it a car or a cat I saw?', isPalindrome: true }
+            ];
+
+            const palindromeList = document.getElementById('palindromeList');
+            testStrings.forEach(test => {
+                const listItem = document.createElement('li');
+                listItem.textContent = test.text;
+                
+                if (isPalindrome(test.text)) {
+                    listItem.className = 'palindrome';
+                    listItem.textContent += ' - Palindrome';
+                } else {
+                    listItem.className = 'not-palindrome';
+                    listItem.textContent += ' - Not a Palindrome';
+                }
+
+                palindromeList.appendChild(listItem);
+            });
+        }
+
+        // Call functions to display content
+        displayBookmarks();
+        displayPalindromeResults();
+    </script>
+
+</body>
+</html>
