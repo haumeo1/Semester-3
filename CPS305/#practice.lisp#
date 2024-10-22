@@ -182,3 +182,16 @@ title director year type
                      (list key (gethash key count)))
            keys))))
 
+(defun quicksort (vec comp)
+  (when (> (length vec) 1)
+    (let ((ppvt 0)
+          (pivot (aref vec (1- (length vec))))) ; last element
+      (dotimes (i (1- (length vec))) ; finds position of the pivot
+        (when (funcall comp (aref vec i) pivot)
+          (rotatef (aref vec i) (aref vec ppvt))
+          (incf ppvt)))
+      ;; swap the pivot (last element) in its proper place
+      (rotatef (aref vec (1- (length vec))) (aref vec ppvt))
+      (quicksort (rtl:slice vec 0 ppvt) comp)
+      (quicksort (rtl:slice vec (1+ ppvt)) comp)))
+  vec)
