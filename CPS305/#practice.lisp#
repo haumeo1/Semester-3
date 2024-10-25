@@ -182,16 +182,40 @@ title director year type
                      (list key (gethash key count)))
            keys))))
 
-(defun quicksort (vec comp)
-  (when (> (length vec) 1)
-    (let ((ppvt 0)
-          (pivot (aref vec (1- (length vec))))) ; last element
-      (dotimes (i (1- (length vec))) ; finds position of the pivot
-        (when (funcall comp (aref vec i) pivot)
-          (rotatef (aref vec i) (aref vec ppvt))
-          (incf ppvt)))
-      ;; swap the pivot (last element) in its proper place
-      (rotatef (aref vec (1- (length vec))) (aref vec ppvt))
-      (quicksort (rtl:slice vec 0 ppvt) comp)
-      (quicksort (rtl:slice vec (1+ ppvt)) comp)))
-  vec)
+(defun double-list (ls)
+ (let
+     ((result nil))
+   (dolist (x ls)
+     (push (* x x) result)
+       )
+   (nreverse result)
+     )
+  )
+
+;implement linked-list
+(defstruct node
+  data next
+  )
+(defstruct linked-list
+  head size
+  )
+(defun 1-ele (alist)
+  (node-data (linked-list-head alist))
+  )
+(defun add-ele (value alist)
+  (make-linked-list :head (make-node :data value :next (linked-list-head alist))
+                    :size (1+ (linked-list-size alist))
+                    )
+  )
+(defun my-cdr (alist)
+  (make-linked-list :head (node-next (linked-list-head alist))
+                    :size (1- (linked-list-size alist))
+                    )
+  
+  )
+(defun print-ls (alist)
+  (loop while (not (null (linked-list-head alist))) do
+         (format t "~a~%" (node-data (linked-list-head alist)))
+         (setf alist (my-cdr alist))
+         )
+  )
