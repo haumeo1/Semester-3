@@ -231,3 +231,9 @@ title director year type
     maximum
     )
   )
+
+(defun try ()
+  (dotimes (i 5)
+    (print i)
+    )
+  )
