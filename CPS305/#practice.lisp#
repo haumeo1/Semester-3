@@ -247,3 +247,6 @@ title director year type
      (if (not (member (car lst) arr))
          (cons (car lst) (rm-duplicates-odd (cdr lst) (cons (car lst) arr)))
          (rm-duplicates-odd (cdr lst) arr)))))
+
+(defun my-feedback-file (stdid)
+  (format nil "~A.txt" (sxhash (format nil "~A" stdid))))
